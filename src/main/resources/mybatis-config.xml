@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTO Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.sj.shoppingMall.common.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.sj.shoppingMall.customer.model.vo.Customer" alias="Customer"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mappers/common-mapper.xml"/>
+		<mapper resource="mappers/customer-mapper.xml"/>
+	</mappers>
+</configuration>

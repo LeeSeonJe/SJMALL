@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /* stylelint-disable selector-list-comma-newline-after */
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 .blog-header {
   line-height: 1;
   border-bottom: 1px solid #e5e5e5;

@@ -8,7 +8,8 @@ import com.sj.shoppingMall.customer.model.vo.Customer;
 
 @Repository("cuDAO")
 public class CustomerDAO {
-	
+
+	// customer 회원가입
 	public int insertCustomer(SqlSessionTemplate sqlSession, Member mem, Customer c) {
 		int result = sqlSession.insert("commonMapper.memberInsert", mem);
 		if(result > 0) {

@@ -16,10 +16,10 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
+	// customer 회원가입
 	@Override
 	public int insertCustomer(Member mem, Customer c) {
 		return cuDAO.insertCustomer(sqlSession, mem, c);
 	}
-
 }

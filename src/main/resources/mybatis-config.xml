@@ -7,10 +7,12 @@
 	<typeAliases>
 		<typeAlias type="com.sj.shoppingMall.common.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.sj.shoppingMall.customer.model.vo.Customer" alias="Customer"/>
+		<typeAlias type="com.sj.shoppingMall.business.model.vo.Business" alias="Business"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/common-mapper.xml"/>
 		<mapper resource="mappers/customer-mapper.xml"/>
+		<mapper resource="mappers/business-mapper.xml"/>
 	</mappers>
 </configuration>

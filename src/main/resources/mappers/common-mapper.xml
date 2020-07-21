@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="commonMapper">
+	
+	<!-- 아이디 유효성 검사 -->
+	<select id="idCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE ID = #{ id }
+	</select>
+
+	<!-- 이메일 유효성 검사 -->
+	<select id="emailCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = #{ email }
+	</select>
+
+	<!-- 회원가입 -->
 	<insert id="memberInsert">
 		INSERT INTO MEMBER
 		VALUES (SEQ_MEMBERNO.NEXTVAL, #{id}, #{pwd}, #{email}, #{kind}, DEFAULT, SYSDATE)

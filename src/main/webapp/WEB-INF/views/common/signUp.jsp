@@ -23,22 +23,22 @@
 				<table id="customer-table">
 					<tr>
 						<td><label>아이디*</label></td>
-						<td colspan="2"><input type="text" name="id" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="text" name="id" required="required" onkeyup="idCheck(this, 'c');"/></td>
+						<td colspan="2"><label id="id_label_c" style="font-size: 11px;">영 소문자, 숫자 8~20자리로 입력해주세요.</label></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호*</label></td>
-						<td colspan="2"><input type="password" name="pwd" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="password" name="pwd" required="required" onkeyup="pwdCheck(this, 'c', 1);"/></td>
+						<td colspan="2"><label id="pwd_label_c" style="font-size: 11px;">비밀번호는 8~16자리(숫자, 특수문자 포함)</label></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호 확인*</label></td>
-						<td colspan="2"><input type="password" name="newPwd" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="password" name="newPwd" required="required" onkeyup="pwdCheck(this, 'c', 2);" /></td>
+						<td colspan="2"><label id="newPwd_label_c" style="font-size: 11px;">비밀번호는 8~16자리(숫자, 특수문자 포함)</label></td>
 					</tr>
 					<tr>
 						<td><label>이메일*</label></td>
-						<td><input type="text" name="email_id" required="required" /> &nbsp;@&nbsp;</td>
+						<td><input type="text" id="cEmail_id" name="email_id" required="required" /> &nbsp;@&nbsp;</td>
 						<td><input type="text" id="domein1" name="domein" required="required" />&nbsp;&nbsp;</td>
 						<td><select id="sel_domein1">
 								<option value="domein1">직접입력</option>
@@ -58,22 +58,22 @@
 				<table id="business-table">
 					<tr>
 						<td><label>아이디*</label></td>
-						<td colspan="2"><input type="text" name="id" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="text" name="id" required="required" onkeyup="idCheck(this, 'b');"/></td>
+						<td colspan="2"><label id="id_label_b" style="font-size: 11px;">영 소문자, 숫자 8~20자리로 입력해주세요.</label></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호*</label></td>
-						<td colspan="2"><input type="password" name="pwd" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="password" name="pwd" required="required" onkeyup="pwdCheck(this, 'b', 1);"/></td>
+						<td colspan="2"><label id="pwd_label_b" style="font-size: 11px;">비밀번호는 8~16자리(숫자, 특수문자 포함)</label></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호 확인*</label></td>
-						<td colspan="2"><input type="password" name="newPwd" required="required" /></td>
-						<td><label></label></td>
+						<td><input type="password" name="pwd" required="required" onkeyup="pwdCheck(this, 'b', 2);"/></td>
+						<td colspan="2"><label id="newPwd_label_b" style="font-size: 11px;">비밀번호는 8~16자리(숫자, 특수문자 포함)</label></td>
 					</tr>
 					<tr>
 						<td><label>이메일*</label></td>
-						<td><input type="text" name="email_id" required="required" /> &nbsp;@&nbsp;</td>
+						<td><input type="text" id="bEmail_id" name="email_id" required="required" /> &nbsp;@&nbsp;</td>
 						<td><input type="text" id="domein2" name="domein" required="required" />&nbsp;&nbsp;</td>
 						<td><select id="sel_domein2">
 								<option value="domein1">직접입력</option>
@@ -84,7 +84,7 @@
 					</tr>
 					<tr>
 						<td><label>회사명*</label></td>
-						<td><input type="text" name="enterName" required="required" /></td>
+						<td><input type="text" name="enterName" required="required"/></td>
 					</tr>
 					<tr>
 						<td><label>대표자명*</label></td>
@@ -92,11 +92,11 @@
 					</tr>
 					<tr>
 						<td><label>사업자번호*</label></td>
-						<td><input type="text" name="licenseNo" required="required" /></td>
+						<td><input type="number" name="licenseNo" required="required" /></td>
 					</tr>
 					<tr>
 						<td><label>연락처*</label></td>
-						<td colspan="3"><input type="text" name="businessPhone" required="required" /></td>
+						<td colspan="3"><input type="number" name="businessPhone" required="required" /></td>
 					</tr>
 				</table>
 			</form>
@@ -108,7 +108,10 @@
 	</div>
 	
 	<script type="text/javascript">
-		var status = '${ status }'
+		var status = '${ status }';
+		var idCheckFlag = false;
+		var pwdCheckFlag = false;
+		
 	</script>
 
 

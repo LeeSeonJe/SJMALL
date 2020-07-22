@@ -7,8 +7,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-	
-	${ S }
+
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </body>
 </html>

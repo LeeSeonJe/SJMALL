@@ -21,4 +21,45 @@
 		INSERT INTO MEMBER
 		VALUES (SEQ_MEMBERNO.NEXTVAL, #{id}, #{pwd}, #{email}, #{kind}, DEFAULT, SYSDATE)
 	</insert>
+	
+	<!-- customer 로그인 -->
+	<select id="customerSignIn" parameterType="Member" resultMap="CustomerResultSet">
+		SELECT * 
+		FROM MEMBER
+		JOIN CUSTOMER ON (MEMBERNO = CUSTOMERNO)
+		WHERE ID = #{ id } AND STATUS = 'Y'
+	</select>
+	
+	<resultMap type="Customer" id="CustomerResultSet">
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<association property="member" resultMap="memberResultSet"></association>
+	</resultMap>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id property="memberNo" column="MEMBERNO"/>
+		<result property="id" column="ID"/>
+		<result property="pwd" column="PASSWORD"/>
+		<result property="email" column="EMAIL"/>
+		<result property="kind" column="KIND"/>
+		<result property="status" column="STATUS"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+	</resultMap>
+	
+	<!-- business 로그인 -->
+	<select id="businessSignIn" parameterType="Member" resultMap="BusinessResultSet">
+		SELECT *
+		FROM MEMBER
+		JOIN BUSINESS ON (MEMBERNO = BUSINESSNO)
+		WHERE ID = #{ id } AND STATUS = 'Y'
+	</select>
+	
+	<resultMap type="Business" id="BusinessResultSet">
+		<result property="enterName" column="ENTERNAME"/>
+		<result property="businessName" column="BUSINESSNAME"/>
+		<result property="licenseNo" column="LICENSENO"/>
+		<result property="businessPhone" column="BUSINESSPHONE"/>
+		<association property="member" resultMap="memberResultSet"></association>
+	</resultMap>
+	
 </mapper>

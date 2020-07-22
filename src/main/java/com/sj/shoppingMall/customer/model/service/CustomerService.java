@@ -7,5 +7,5 @@ public interface CustomerService {
 	
 	// customer 회원가입
 	int insertCustomer(Member mem, Customer c);
-	
+
 }

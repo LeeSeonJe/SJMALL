@@ -29,3 +29,18 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+p.mt-2 {
+	display: inline-block;
+	font-size: 12px;
+}
+
+p.mt-2>a {
+	text-decoration: none;
+	color: gray;
+}
+
+p.mt-2>a:hover {
+	text-decoration: underline;
+	color: gray;
+}

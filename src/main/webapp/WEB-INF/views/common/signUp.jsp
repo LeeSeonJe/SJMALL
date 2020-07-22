@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 						<td><label>연락처*</label></td>
-						<td colspan="3"><input type="number" name="businessPhone" required="required" /></td>
+						<td colspan="3"><input type="text" name="businessPhone" required="required" /></td>
 					</tr>
 				</table>
 			</form>
@@ -106,16 +106,14 @@
 			<button type="button" onclick="location.href='javascript:history.go(-1)'">취소</button>
 		</div>
 	</div>
+
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
 		var status = '${ status }';
 		var idCheckFlag = false;
 		var pwdCheckFlag = false;
-		
 	</script>
-
-
-	<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="resources/common/js/signUp.js"></script>
 </body>

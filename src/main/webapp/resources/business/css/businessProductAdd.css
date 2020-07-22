@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+nav.navbar {
+	width: 900px;
+}
+
+form, table {
+	width: 100%;
+}

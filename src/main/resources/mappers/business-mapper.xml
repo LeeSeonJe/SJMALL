@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="businessMapper">
+	<!-- business 회원 등록 -->
 	<insert id="businessInsert" parameterType="Business">
 		INSERT INTO BUSINESS
 		VALUES (SEQ_MEMBERNO.CURRVAL, #{ enterName }, #{ businessName }, #{ licenseNo }, #{ businessPhone })
+	</insert>
+	
+	<!-- 제품등록 -->
+	<insert id="productInsert" parameterType="Product">
+		INSERT INTO PRODUCT
+		VALUES (SEQ_PRODUCTNO.NEXTVAL, 
+				#{ businessNo }, 
+				#{ productCategory }, 
+				#{ productThumbNail }, 
+				#{ productName }, 
+				#{ productPrice }, 
+				#{ productDetail }, DEFAULT)
+	</insert>
+	
+	<!-- 제품사이즈 등록 -->
+	<insert id="productSizeInsert" parameterType="hashmap">
+		<foreach collection="_parameter.entrySet()" item="value" index="key" separator=" " open="INSERT ALL" close="SELECT * FROM SYS.DUAL"> 
+			INTO PRODUCTSIZE
+			VALUES (SEQ_PRODUCTNO.CURRVAL, #{ key }, #{ value })
+		</foreach>
 	</insert>
 </mapper>

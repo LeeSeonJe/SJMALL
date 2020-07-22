@@ -6,14 +6,14 @@ public class Business {
 	private Member member;
 	private String enterName;
 	private String businessName;
-	private int licenseNo;
+	private Long licenseNo;
 	private String businessPhone;
 
 	public Business() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Business(Member member, String enterName, String businessName, int licenseNo, String businessPhone) {
+	public Business(Member member, String enterName, String businessName, Long licenseNo, String businessPhone) {
 		super();
 		this.member = member;
 		this.enterName = enterName;
@@ -46,11 +46,11 @@ public class Business {
 		this.businessName = businessName;
 	}
 
-	public int getLicenseNo() {
+	public Long getLicenseNo() {
 		return licenseNo;
 	}
 
-	public void setLicenseNo(int licenseNo) {
+	public void setLicenseNo(Long licenseNo) {
 		this.licenseNo = licenseNo;
 	}
 

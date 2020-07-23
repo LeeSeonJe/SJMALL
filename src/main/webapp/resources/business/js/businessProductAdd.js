@@ -56,11 +56,11 @@ $('select[name=productCategory]').on('click', function() {
 		$('#cateSize').html("");
 		$('#cateSize').append(size2);
 		flag = true;
-	} else if (select == 'skirt') {
+	} else if (select == 'Skirt') {
 		$('#cateSize').html("");
 		$('#cateSize').append(size2);
 		flag = true;
-	} else if (select == 'OnePice') {
+	} else if (select == 'OnePiece') {
 		$('#cateSize').html("");
 		$('#cateSize').append(size1);
 		flag = true;

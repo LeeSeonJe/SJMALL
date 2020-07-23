@@ -7,6 +7,7 @@
 .settings
 .springBeans
 target/
+src/main/webapp/resources/business/images
 
 ### Eclipse ###
 .metadata

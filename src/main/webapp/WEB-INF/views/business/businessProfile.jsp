@@ -21,8 +21,8 @@
 				<p>MyPage<br>&nbsp;</p>
 				<li><a href="businessProfile.bu" style="color: blue; font-weight: 800;">회원정보</a><br></li>
 				<li><a href="businessProductList.bu">제품관리</a><br></li>
+				<li><a href="businessProductAdd.bu">제품등록</a><br></li>
 				<li><a href="#">주문/배송조회</a><br></li>
-				<li><a href="#">내가 쓴 리뷰</a><br></li>
 				<li><a href="#">판매자문의</a><br></li>
 				<li><a href="#">관리자문의</a></li>
 			</ul>

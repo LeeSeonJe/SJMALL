@@ -6,7 +6,7 @@
 		<div class="row flex-nowrap justify-content-between align-items-center">
 			<div class="col-4 pt-1"></div>
 			<div class="col-4 text-center">
-				<a class="blog-header-logo text-dark" href="main.co">SJ MALL</a>
+				<a class="blog-header-logo text-dark" href="main.co">SJ STORE</a>
 			</div>
 			<div class="col-4 d-flex justify-content-end align-items-center">
 				<a class="text-muted" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
@@ -40,13 +40,12 @@
 
 	<div class="nav-scroller py-1 mb-2">
 		<nav class="nav d-flex justify-content-between">
-			<a class="p-2" href="#" style="color: #fb00ff;">BEST100</a> 
-			<a class="p-2 text-muted" href="#">ALL</a> 
-			<a class="p-2 text-muted" href="#">Top</a>
-			<a class="p-2 text-muted" href="#">Pants</a>
-			<a class="p-2 text-muted" href="#">Skirt</a>
-			<a class="p-2 text-muted" href="#">OnePice</a>
-			<a class="p-2 text-muted" href="#">Shoes</a>
+			<a class="p-2 text-muted" href="main.co">ALL</a> 
+			<a class="p-2 text-muted" href="topPage.co">Top</a>
+			<a class="p-2 text-muted" href="pantsPage.co">Pants</a>
+			<a class="p-2 text-muted" href="skirtPage.co">Skirt</a>
+			<a class="p-2 text-muted" href="onePiecePage.co">OnePiece</a>
+			<a class="p-2 text-muted" href="shoesPage.co">Shoes</a>
 		</nav>
 	</div>
 </div>

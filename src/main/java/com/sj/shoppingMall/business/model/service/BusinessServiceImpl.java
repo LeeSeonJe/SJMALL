@@ -1,6 +1,8 @@
 package com.sj.shoppingMall.business.model.service;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,30 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public int productInsert(Product p) {
 		return buDAO.productInsert(sqlSession, p);
+	}
+
+	// 등록한 제품 불러오기
+	@Override
+	public ArrayList<Product> myProductList(int memberNo) {
+		return buDAO.myProductList(sqlSession, memberNo);
+	}
+
+	// 제품 수정을 위한 하나의 제품 가져오기
+	@Override
+	public Product getProduct(Integer productNo) {
+		return buDAO.getProduct(sqlSession, productNo);
+	}
+
+	// 제품 사이즈 가져오기
+	@Override
+	public ArrayList<Map<String, Integer>> getProductSize(Integer productNo) {
+		return buDAO.getProductSize(sqlSession,productNo);
+	}
+
+	// 제품 수정하기
+	@Override
+	public int productUpdate(Product p) {
+		return buDAO.productUpdate(sqlSession, p);
 	}
 
 }

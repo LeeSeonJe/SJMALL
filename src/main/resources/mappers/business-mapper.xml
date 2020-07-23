@@ -13,10 +13,11 @@
 		VALUES (SEQ_PRODUCTNO.NEXTVAL, 
 				#{ businessNo }, 
 				#{ productCategory }, 
+				#{ productBrand },
 				#{ productThumbNail }, 
 				#{ productName }, 
 				#{ productPrice }, 
-				#{ productDetail }, DEFAULT)
+				#{ productDetail }, DEFAULT, SYSDATE)
 	</insert>
 	
 	<!-- 제품사이즈 등록 -->
@@ -25,5 +26,79 @@
 			INTO PRODUCTSIZE
 			VALUES (SEQ_PRODUCTNO.CURRVAL, #{ key }, #{ value })
 		</foreach>
+	</insert>
+	
+	<!-- 등록한 제품 불러오기 -->
+	<select id="myProductList" resultMap="ProductResultMap">
+		SELECT * 
+		FROM PRODUCT
+		WHERE BUSINESSNO = #{ memberNo }
+		ORDER BY ENROLLDATE DESC
+	</select>
+	
+	<resultMap type="Product" id="ProductResultMap">
+		<id property="productNo" column="PRODUCTNO"/>
+		<result property="businessNo" column="BUSINESSNO"/>
+		<result property="productCategory" column="PRODUCTCATEGORY"/>
+		<result property="productBrand" column="PRODUCTBRAND"/>
+		<result property="productThumbNail" column="PRODUCTTHUMBNAIL"/>
+		<result property="productName" column="PRODUCTNAME"/>
+		<result property="productPrice" column="PRODUCTPRICE"/>
+		<result property="productDetail" column="PRODUCTDETAIL"/>
+		<result property="status" column="STATUS"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+	</resultMap>
+	
+	<!-- 제품 하나 불러오기 -->
+	<select id="getProduct" resultMap="ProductResultMap">
+		SELECT *
+		FROM PRODUCT
+		WHERE PRODUCTNO = #{ productNo }
+	</select>
+	
+	<!-- 제품에 대한 사이즈 불러오기 vo없이 사용함 -->
+	<select id="getProductSize" resultMap="ProductSizeResultMap">
+		SELECT PRODUCTSIZE, PRODUCTCOUNT
+		FROM PRODUCTSIZE
+		WHERE PRODUCTNO = #{ productNo }
+	</select>
+	
+	<resultMap type="map" id="ProductSizeResultMap">
+		<result property="productSize" column="PRODUCTSIZE"/>
+		<result property="productCount" column="PRODUCTCOUNT"/>
+	</resultMap>
+	
+	<!-- 제품 수정 -->
+	<update id="productUpdate">
+		UPDATE PRODUCT SET
+			<if test="productThumbNail != null">
+				PRODUCTCATEGORY = #{ productCategory }, 
+				PRODUCTBRAND = #{ productBrand },
+				PRODUCTTHUMBNAIL = #{ productThumbNail }, 
+				PRODUCTNAME = #{ productName }, 
+				PRODUCTPRICE = #{ productPrice }, 
+				PRODUCTDETAIL = #{ productDetail }, 
+				STATUS = #{ status }
+			</if>
+			<if test="productThumbNail == null">
+				PRODUCTCATEGORY = #{ productCategory },
+				PRODUCTBRAND = #{ productBrand }, 
+				PRODUCTNAME = #{ productName }, 
+				PRODUCTPRICE = #{ productPrice }, 
+				PRODUCTDETAIL = #{ productDetail }, 
+				STATUS = #{ status }
+			</if>		
+			WHERE PRODUCTNO = #{ productNo }
+	</update>
+	
+	<!-- 제품의 사이즈 삭제 -->
+	<delete id="productSizeDelete">
+		DELETE FROM PRODUCTSIZE
+		WHERE PRODUCTNO = #{ productNo }
+	</delete>
+	
+	<insert id="productSizeUpdate">
+			INSERT INTO PRODUCTSIZE
+			VALUES (#{ productNo }, #{ productSize }, #{ productCount })
 	</insert>
 </mapper>

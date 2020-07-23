@@ -1,11 +1,13 @@
 package com.sj.shoppingMall.business.model.vo;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Product {
 	private int productNo;
 	private int businessNo;
 	private String productCategory;
+	private String productBrand;
 	private String productThumbNail;
 	private String productName;
 	private String productPrice;
@@ -13,18 +15,20 @@ public class Product {
 	private ArrayList<String> productSize;
 	private ArrayList<String> productCount;
 	private char status;
+	private Date enrollDate;
 
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int productNo, int businessNo, String productCategory, String productThumbNail, String productName,
-			String productPrice, String productDetail, ArrayList<String> productSize, ArrayList<String> productCount,
-			char status) {
+	public Product(int productNo, int businessNo, String productCategory, String productBrand, String productThumbNail,
+			String productName, String productPrice, String productDetail, ArrayList<String> productSize,
+			ArrayList<String> productCount, char status, Date enrollDate) {
 		super();
 		this.productNo = productNo;
 		this.businessNo = businessNo;
 		this.productCategory = productCategory;
+		this.productBrand = productBrand;
 		this.productThumbNail = productThumbNail;
 		this.productName = productName;
 		this.productPrice = productPrice;
@@ -32,6 +36,7 @@ public class Product {
 		this.productSize = productSize;
 		this.productCount = productCount;
 		this.status = status;
+		this.enrollDate = enrollDate;
 	}
 
 	public int getProductNo() {
@@ -114,12 +119,29 @@ public class Product {
 		this.businessNo = businessNo;
 	}
 
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+	public String getProductBrand() {
+		return productBrand;
+	}
+
+	public void setProductBrand(String productBrand) {
+		this.productBrand = productBrand;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", businessNo=" + businessNo + ", productCategory=" + productCategory
-				+ ", productThumbNail=" + productThumbNail + ", productName=" + productName + ", productPrice="
-				+ productPrice + ", productDetail=" + productDetail + ", productSize=" + productSize + ", productCount="
-				+ productCount + ", status=" + status + "]";
+				+ ", productBrand=" + productBrand + ", productThumbNail=" + productThumbNail + ", productName="
+				+ productName + ", productPrice=" + productPrice + ", productDetail=" + productDetail + ", productSize="
+				+ productSize + ", productCount=" + productCount + ", status=" + status + ", enrollDate=" + enrollDate
+				+ "]";
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.sj.shoppingMall.common.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sj.shoppingMall.business.model.vo.Business;
+import com.sj.shoppingMall.business.model.vo.Product;
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 
@@ -27,6 +30,14 @@ public class CommonDAO {
 
 	public Business businessSignIn(SqlSessionTemplate sqlSession, Member mem) {
 		return sqlSession.selectOne("commonMapper.businessSignIn", mem);
+	}
+
+	public ArrayList<Product> getPList(SqlSessionTemplate sqlSession, String category, int number) {
+		if(number == 0) {
+			return (ArrayList) sqlSession.selectList("commonMapper.getPList1", category);			
+		} else {
+			return (ArrayList) sqlSession.selectList("commonMapper.getPList2", category);		
+		}
 	}
 
 }

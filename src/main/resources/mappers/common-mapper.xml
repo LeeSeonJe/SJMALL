@@ -19,7 +19,7 @@
 	<!-- 회원가입 -->
 	<insert id="memberInsert">
 		INSERT INTO MEMBER
-		VALUES (SEQ_MEMBERNO.NEXTVAL, #{id}, #{pwd}, #{email}, #{kind}, DEFAULT, SYSDATE)
+		VALUES (SEQ_MEMBERNO.NEXTVAL, #{ id }, #{ pwd }, #{ email }, #{ kind }, DEFAULT, SYSDATE)
 	</insert>
 	
 	<!-- customer 로그인 -->
@@ -62,4 +62,34 @@
 		<association property="member" resultMap="memberResultSet"></association>
 	</resultMap>
 	
+	<!-- 메인에서 제품 가져오기 위한 리스트 -->
+	<select id="getPList1" resultMap="ProductResultMap">
+			SELECT * 
+			FROM (SELECT ROWNUM, P.*
+            	  FROM PRODUCT P
+            	  WHERE P.PRODUCTCATEGORY = #{ category }
+            	  ORDER BY ENROLLDATE DESC)
+            <![CDATA[WHERE ROWNUM < 5]]>
+	</select>
+	
+	<resultMap type="Product" id="ProductResultMap">
+		<id property="productNo" column="PRODUCTNO"/>
+		<result property="businessNo" column="BUSINESSNO"/>
+		<result property="productCategory" column="PRODUCTCATEGORY"/>
+		<result property="productBrand" column="PRODUCTBRAND"/>
+		<result property="productThumbNail" column="PRODUCTTHUMBNAIL"/>
+		<result property="productName" column="PRODUCTNAME"/>
+		<result property="productPrice" column="PRODUCTPRICE"/>
+		<result property="productDetail" column="PRODUCTDETAIL"/>
+		<result property="status" column="STATUS"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+	</resultMap>
+	
+	<!-- 각 카테고리별 제품을 가져오기 위한 리스트 -->
+	<select id="getPList2" resultMap="ProductResultMap">
+		SELECT *
+		FROM PRODUCT
+		WHERE PRODUCTCATEGORY = #{ category }
+		ORDER BY ENROLLDATE DESC
+	</select>
 </mapper>

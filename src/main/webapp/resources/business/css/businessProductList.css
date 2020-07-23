@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+nav.navbar {
+	width: 900px;
+}
+
+form, table {
+	width: 100%;
+}
+
+tbody td {
+	text-align: center;
+	height: 200px;
+}
+
+.thead-area>th {
+	text-align: center;	
+}
+
+tbody tr {
+	cursor: pointer;
+}
+
+tbody tr:hover {
+	cursor: pointer;
+	background: #fbfaed;
+}

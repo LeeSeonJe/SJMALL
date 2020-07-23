@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +39,6 @@ public class BusinessController {
 			@RequestParam String domein, HttpServletResponse response) throws IOException {
 		String email = email_id + "@" + domein;
 		mem.setPwd(encoder.encode(mem.getPwd()));
-
 		// email 넣어주기
 		mem.setEmail(email);
 
@@ -60,7 +61,10 @@ public class BusinessController {
 	
 	// business 제품관리 페이지
 	@RequestMapping("businessProductList.bu")
-	public String businessProductList() {
+	public String businessProductList(Model m, HttpSession session) {
+		Business loginUser = (Business) session.getAttribute("loginUser"); 
+		ArrayList<Product> pList = buService.myProductList(loginUser.getMember().getMemberNo());
+		m.addAttribute("pList", pList);
 		return "businessProductList";
 	}
 	
@@ -89,6 +93,7 @@ public class BusinessController {
 		}
 	}
 
+	// 제품 대표이미지 이름변경을 위한 함수
 	private String thumbNailSaveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\business\\images";
@@ -113,5 +118,30 @@ public class BusinessController {
 		}
 
 		return renameFileName;
+	}
+	
+	// 제품 수정 페이지
+	@RequestMapping("businessProductUpdate.bu")
+	public String businessProductUpdate(@RequestParam Integer productNo, Model m) {
+		Product p = buService.getProduct(productNo);
+		
+		// 제품 사이즈 가져오기
+		ArrayList<Map<String, Integer>> pSizeList = buService.getProductSize(productNo);
+		
+		m.addAttribute("p", p).addAttribute("pSizeList", pSizeList);
+		return "businessProductUpdate";
+	}
+	
+	// 제품 수정하기
+	@RequestMapping("productUpdate.bu")
+	public String productUpdate(Product p, @RequestParam("uploadFile") MultipartFile uploadFile, HttpServletRequest request) {
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			String productThumbNail = thumbNailSaveFile(uploadFile, request);
+			if (productThumbNail != null) {
+				p.setProductThumbNail(productThumbNail);
+			}
+		}
+		int resut = buService.productUpdate(p);
+		return "redirect:businessProductList.bu";
 	}
 }

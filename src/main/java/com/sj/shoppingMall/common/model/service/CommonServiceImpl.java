@@ -1,10 +1,13 @@
 package com.sj.shoppingMall.common.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sj.shoppingMall.business.model.vo.Business;
+import com.sj.shoppingMall.business.model.vo.Product;
 import com.sj.shoppingMall.common.model.dao.CommonDAO;
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.vo.Customer;
@@ -42,6 +45,12 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public Business businessSignIn(Member mem) {
 		return coDAO.businessSignIn(sqlSession, mem);
+	}
+
+	// 제품 카테고리별 가져오기
+	@Override
+	public ArrayList<Product> getPList(String category, int number) {
+		return coDAO.getPList(sqlSession, category, number);
 	}
 	
 }

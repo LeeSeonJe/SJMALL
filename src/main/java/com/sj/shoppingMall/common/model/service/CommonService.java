@@ -1,6 +1,9 @@
 package com.sj.shoppingMall.common.model.service;
 
+import java.util.ArrayList;
+
 import com.sj.shoppingMall.business.model.vo.Business;
+import com.sj.shoppingMall.business.model.vo.Product;
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 
@@ -17,5 +20,8 @@ public interface CommonService {
 
 	// business 로그인
 	Business businessSignIn(Member mem);
+
+	// 카테고리별 가져오기
+	ArrayList<Product> getPList(String category, int number);
 	
 }

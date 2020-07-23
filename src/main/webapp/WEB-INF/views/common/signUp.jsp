@@ -68,7 +68,7 @@
 					</tr>
 					<tr>
 						<td><label>비밀번호 확인*</label></td>
-						<td><input type="password" name="pwd" required="required" onkeyup="pwdCheck(this, 'b', 2);"/></td>
+						<td><input type="password" name="newPwd" required="required" onkeyup="pwdCheck(this, 'b', 2);"/></td>
 						<td colspan="2"><label id="newPwd_label_b" style="font-size: 11px;">비밀번호는 8~16자리(숫자, 특수문자 포함)</label></td>
 					</tr>
 					<tr>

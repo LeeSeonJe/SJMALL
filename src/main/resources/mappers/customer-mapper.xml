@@ -8,4 +8,114 @@
 		INSERT INTO CUSTOMER
 		VALUES (SEQ_MEMBERNO.CURRVAL, #{name}, DEFAULT)
 	</insert>
+	
+	<!-- 장바구니에 제품이 있는지 없는지 확인 -->
+	<select id="checkBucket" resultType="_int">
+		SELECT COUNT(*)
+		FROM BUCKET
+		WHERE CUSTOMERNO = #{ customerNo } AND PRODUCTNO = #{ productNo } AND PRODUCTSIZE = #{ productSize }
+	</select>
+	
+	<!-- 장바구니에 제품이 없으면 추가한다 -->
+	<insert id="insertBucket">
+		<if test="productCount != 0">
+			INSERT INTO BUCKET
+			VALUES (SEQ_BUCKETNO.NEXTVAL, #{ productNo }, #{ customerNo }, #{ productSize }, #{ productCount }, #{ productPrice }) 		
+		</if>
+	</insert>
+	
+	<!-- 장바구니에 제품이 있으면 개수랑 가격을 추가한다. -->
+	<update id="updateBucket">
+		UPDATE BUCKET
+		SET PRODUCTCOUNT = PRODUCTCOUNT + #{ productCount }, PRODUCTPRICE = PRODUCTPRICE + #{ productPrice }
+		WHERE CUSTOMERNO = #{ customerNo } AND PRODUCTNO = #{ productNo } AND PRODUCTSIZE = #{ productSize } 
+	</update>
+	
+	<!-- 장바구니 페이지 제품 모두 가져오기 -->
+	<select id="getBucketList" resultMap="BucketProductResultSet2">
+		SELECT PRODUCTNO, BUSINESSNO, PRODUCTCATEGORY, PRODUCTBRAND, PRODUCTTHUMBNAIL, PRODUCTNAME, PRODUCT.PRODUCTPRICE AS PRO_PRODUCTPRICE,
+	           BUCKETNO, CUSTOMERNO, PRODUCTSIZE, PRODUCTCOUNT, BUCKET.PRODUCTPRICE AS BUC_PRODUCTPRICE
+		FROM BUCKET
+        JOIN PRODUCT USING (PRODUCTNO)
+		WHERE CUSTOMERNO = #{ customerNo }
+	</select>
+	
+	<!-- getBucketList resultMap -->
+	<resultMap type="BucketProduct" id="BucketProductResultSet2">
+		<id property="bucketNo" column="BUCKETNO"/>
+		<result property="productNo" column="PRODUCTNO"/>
+		<result property="customerNo" column="CUSTOMERNO"/>
+		<result property="productSize" column="PRODUCTSIZE"/>
+		<result property="productCount" column="PRODUCTCOUNT"/>
+		<result property="productPrice" column="BUC_PRODUCTPRICE"/>
+		<association property="product" resultMap="ProductResultMap"></association>
+	</resultMap>
+	
+	<!-- getBucketList resultMap -->
+	<resultMap type="Product" id="ProductResultMap">
+		<id property="productNo" column="PRODUCTNO"/>
+		<result property="businessNo" column="BUSINESSNO"/>
+		<result property="productCategory" column="PRODUCTCATEGORY"/>
+		<result property="productBrand" column="PRODUCTBRAND"/>
+		<result property="productThumbNail" column="PRODUCTTHUMBNAIL"/>
+		<result property="productName" column="PRODUCTNAME"/>
+		<result property="productPrice" column="PRO_PRODUCTPRICE"/>
+	</resultMap>
+	
+	<resultMap type="BucketProduct" id="BucketProductResultSet">
+		<id property="bucketNo" column="BUCKETNO"/>
+		<result property="productNo" column="PRODUCTNO"/>
+		<result property="customerNo" column="CUSTOMERNO"/>
+		<result property="productSize" column="PRODUCTSIZE"/>
+		<result property="productCount" column="PRODUCTCOUNT"/>
+		<result property="productPrice" column="PRODUCTPRICE"/>
+	</resultMap>
+	
+	<!-- 장바구니 삭제 -->
+	<delete id="delectBasket" parameterType="_int">
+		DELETE FROM BUCKET
+		WHERE BUCKETNO = #{ bucketNo }
+	</delete>
+	
+	<!-- 장바구니 제품 개수 증가하기 전 재고수량 확인 -->
+	<select id="stockCount" resultType="_int">
+		SELECT PRODUCTCOUNT
+		FROM PRODUCTSIZE
+		WHERE PRODUCTNO = #{ productNo } AND PRODUCTSIZE = #{ productSize }
+	</select>
+	
+	<!-- 장바구니 제품 개수를 확인 -->
+	<select id="basketCount" resultType="_int">
+		SELECT PRODUCTCOUNT
+		FROM BUCKET
+		WHERE BUCKETNO = #{ bucketNo }
+	</select>
+	
+	<!-- 장바구니 제품 개수 추가 -->
+	<update id="pCountAdd">
+		UPDATE BUCKET
+		SET PRODUCTCOUNT = PRODUCTCOUNT + 1, PRODUCTPRICE = PRODUCTPRICE + #{ productPrice }
+		WHERE BUCKETNO = #{ bucketNo } 
+	</update>
+	
+	<!-- 장바구니 제품 개수 감소 -->
+	<update id="pCountSub">
+		UPDATE BUCKET
+		SET PRODUCTCOUNT = PRODUCTCOUNT - 1, PRODUCTPRICE = PRODUCTPRICE - #{ productPrice }
+		WHERE BUCKETNO = #{ bucketNo } 
+	</update>
+	
+	<!-- 장바구니 제품 가져오기 -->
+	<select id="getBasket" resultMap="BucketProductResultSet">
+		SELECT *
+		FROM BUCKET
+		WHERE BUCKETNO = #{ bucketNo }
+	</select>
+	
+	<!-- 개수가 최대보다 넘었을 경우 최대로 맞춰주기 -->
+	<update id="countUpdate">
+		UPDATE BUCKET
+		SET PRODUCTCOUNT = #{ stockCount }, PRODUCTPRICE = #{ productPrice }
+		WHERE BUCKETNO = #{ bucketNo }
+	</update>
 </mapper>

@@ -61,6 +61,7 @@
 		SELECT PRODUCTSIZE, PRODUCTCOUNT
 		FROM PRODUCTSIZE
 		WHERE PRODUCTNO = #{ productNo }
+		ORDER BY PRODUCTSIZE
 	</select>
 	
 	<resultMap type="map" id="ProductSizeResultMap">

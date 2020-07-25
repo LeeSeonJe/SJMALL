@@ -5,6 +5,7 @@
     display: flex;
     align-items: stretch;
     width: 65%;
+    min-height: 660px;
 }
 
 body {

@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+#ul_area {
+	background: white;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #e6dddd;
+}
+
+li {
+	list-style: none;
+}
+
+img {
+	width: 80px;
+	height: 80px;
+	margin-left: 15px;
+}
+
+li>div>div {
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+#item_head {
+	border-bottom: 1px solid;
+}
+
+.item {
+	width: 520px;
+	margin-top: 10px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.item label {
+	font-size: 15px;
+}
+
+.item_check {
+	margin-left: 15px;
+}
+
+.item_check label {
+	font-size: 15px;
+/* 	margin-left: 15px; */
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.item_info {
+	width: 320px;
+	margin-left: 22px;
+	vertical-align: middle;
+	margin-top: 14px;
+}
+
+.item_info input {
+    text-align: center;
+    width: 29px;
+    margin: 3px;
+    height: 29px;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.item_info button {
+	background: none;
+	border: 1px solid #e6dddd;
+	font-size: 17px;
+	font-weight: 600;
+	background: white;
+}
+
+.item_name {
+	
+}
+
+.item_price {
+	
+}
+
+.item_price>strong {
+	
+}
+
+.item_size {
+	width: 120px;
+}
+
+.item_cancel {
+	/* 	margin-right: 5px; */
+	cursor: pointer;
+	border: 1px solid #e6dddd;
+	border-radius: 2px;
+	text-align: center;
+}
+
+div#item_total_info {
+	width: 300px;
+	background: white;
+	margin-left: 25px;
+	border: 1px solid #e6dddd;
+	padding: 20px;
+	font-size: 13px;
+	font-family: -apple-system;
+}
+
+#title-area>p {
+	font-size: 16px;
+	font-weight: 600;
+	border-bottom: 1px solid;
+	padding-bottom: 10px;
+	color: black;
+}
+
+#item_btn {
+	
+}
+
+#item_orderBtn {
+	margin-top: 13px;
+	margin: 0 auto;
+	height: 64px;
+	line-height: 64px;
+	display: block;
+	background: #2E8DE5;
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 2px;
+	color: white;
+	outline: none;
+	border: 0;
+	font-weight: bolder;
+	font-size: 22px;
+}
+
+.left_area {
+	float: left;
+}
+
+.right_area {
+	float: right;
+}
+
+#total_price_area {
+	font-size: 16px;
+	border-top: 1px solid;
+	margin-top: 16px;
+	margin-bottom: 40px;
+	padding-top: 15px;
+	border-top: 1px solid;
+}

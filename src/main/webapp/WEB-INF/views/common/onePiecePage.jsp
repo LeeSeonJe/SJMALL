@@ -23,8 +23,7 @@
 										<p class="card-text">${ pol.productPrice }원</p>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<button type="button" class="btn btn-sm btn-outline-secondary">담기</button>
-												<button type="button" class="btn btn-sm btn-outline-secondary" onclick="pDetailPage(${ ptl.productNo });">상세</button>
+												<button type="button" class="btn btn-sm btn-outline-secondary" onclick="pDetailPage(${ pol.productNo });">상세보기</button>
 											</div>
 											<small class="text-muted">${ pol.enrollDate }</small>
 										</div>

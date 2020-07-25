@@ -5,6 +5,7 @@
     display: flex;
     align-items: stretch;
     width: 65%;
+    min-height: 660px;
 }
 
 body {
@@ -33,6 +34,7 @@ li a, a:hover, a:focus {
 	transition: all 0.3s;
 	width: 200px;
 	border: 1px solid #e0e0e0;
+	height: 510px;
 }
 
 #sidebar .sidebar-header {

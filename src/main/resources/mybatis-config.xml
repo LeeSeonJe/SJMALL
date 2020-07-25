@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.sj.shoppingMall.common.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.sj.shoppingMall.customer.model.vo.Customer" alias="Customer"/>
+		<typeAlias type="com.sj.shoppingMall.customer.model.vo.BucketProduct" alias="BucketProduct"/>
 		<typeAlias type="com.sj.shoppingMall.business.model.vo.Business" alias="Business"/>
 		<typeAlias type="com.sj.shoppingMall.business.model.vo.Product" alias="Product"/>
 	</typeAliases>

@@ -25,7 +25,7 @@
 						<a class="btn btn-sm btn-outline-secondary" href="logout.co">로그아웃</a>
 					</c:when>
 					<c:when test="${ loginUser ne null && loginUser.member.kind eq 'C'.charAt(0)}">
-						<a class="btn btn-sm btn-outline-secondary" href="#">최근 본 제품</a>&nbsp;&nbsp;
+						<a class="btn btn-sm btn-outline-secondary" href="customerBasket.cu">장바구니</a>&nbsp;&nbsp;
 						<a class="btn btn-sm btn-outline-secondary" href="customerProfile.cu">마이페이지</a>&nbsp;&nbsp;
 						<a class="btn btn-sm btn-outline-secondary" href="logout.co">로그아웃</a>
 					</c:when>

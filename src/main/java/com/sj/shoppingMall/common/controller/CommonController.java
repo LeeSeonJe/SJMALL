@@ -3,6 +3,7 @@ package com.sj.shoppingMall.common.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -164,7 +165,7 @@ public class CommonController {
 		int number = 1;
 		String Pants = "Pants";
 		ArrayList<Product> pPantsList = coService.getPList(Pants, number);
-		m.addAttribute("pPantsList", pPantsList);
+		m.addAttribute("pPantsList", pPantsList);	
 		return "pantsPage";
 	}
 	
@@ -202,7 +203,10 @@ public class CommonController {
 	@RequestMapping("pDetailPage.co")
 	public String pDetailPage(@RequestParam Integer productNo, Model m) {
 		Product p = buService.getProduct(productNo);
-		m.addAttribute("p", p);
+		ArrayList<Map<String, Integer>> pSizeList = buService.getProductSize(productNo);
+		m.addAttribute("p", p).addAttribute("pSizeList", pSizeList);
 		return "pDetailPage";
 	}
+	
+
 }

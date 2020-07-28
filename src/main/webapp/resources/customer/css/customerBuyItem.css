@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+.title_area {
+	margin: 0 auto;
+	width: 65%;
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 30px;
+}
+
+.title_area h2 {
+	border-top: 1px solid #e5e5e5;
+	padding-top: 20px;
+	margin-bottom: 20px;
+}
+
+.address_area {
+	width: 55%;
+	margin-right: 2%;
+}
+
+.buyItem_area {
+	width: 43%;
+}
+
+.totalPrice_area {
+	margin: 0 auto;
+	width: 65%;
+}
+
+.order_address_div {
+	margin-top: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.order_address_table {
+	width: 100%;
+}
+
+.order_address_table input, select {
+	height: 40px;
+}
+
+.order_address_table label {
+	width: 60px;
+}
+
+.order_address_table td {
+	height: 55px;
+}
+
+.order_address_table select {
+	width: 100%;
+}
+
+.name_tr input {
+	width: 50%;
+}
+
+.address_tr2 input, .address_tr3 input {
+	width: 100%;
+}
+
+.memo_tr input, .memo_tr select {
+	width: 100%;
+}
+
+.phone_tr select, .phone_tr input {
+	width: 80px;
+	height: 40px;
+	text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.order_item_div {
+	height: 431px;
+	overflow-y: scroll;
+	border: 1px solid;
+}
+
+.order_item_table {
+	width: 100%;
+	border-bottom: 1px solid #afa3a3;
+}
+
+.order_item_table img {
+	/* 	text-align: center; */
+	width: 60px;
+	height: 60px;
+	/* 	margin: 0 auto; */
+}
+
+.img_tr {
+	text-align: center;
+}
+
+.pName_tr, .pSize_tr, .pPrice_pCount_tr {
+	height: 40px;
+}
+
+.order_item_table td {
+	font-size: 13px;
+}
+
+.order_item_table td span {
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.buyItem_area h5 {
+	margin-bottom: 29px;
+}
+
+.totalPrice_area {
+	margin-top: 40px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+	text-align: center;
+	font-size: 15px;
+}
+
+.totalPrice_area span {
+	font-weight: 900;
+	font-size: 30px;
+}
+
+.totalPrice_area button {
+    margin: 0 auto;
+    height: 64px;
+    background: #2E8DE5;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 2px;
+    color: white;
+    outline: none;
+    border: 0;
+    font-weight: bolder;
+    font-size: 22px;
+}

@@ -1,11 +1,10 @@
+var itemArray = "";
 priceCommas();
-
 
 $('input[name=productNo]').prop("checked",true);
 itemCheck()
 
 function allSelect(c) {
-	console.log($(c).is(":checked"));
 	if($(c).is(":checked") == true) {
 		$('input[name=productNo]').prop("checked",true);
 		itemCheck();
@@ -40,7 +39,6 @@ function itemCheck() {
 
 
 function subCount(s, bucketNo, productNo, productSize, productPrice) {
-	console.log(bucketNo)
 	$.ajax({
 		url: "pCountSub.cu",
 		async: false,
@@ -52,17 +50,12 @@ function subCount(s, bucketNo, productNo, productSize, productPrice) {
 			productPrice:productPrice
 		},
 		success: function(data){
-			console.log(data)
 			if(Object.keys(data)[0] == 'min') {
-				console.log("max")
 				alert("최소 수량입니다.");
 			} else if(Object.keys(data)[0] == 'no') {
-				console.log("no")
-				console.log($(a));
 				alert("재고가 없습니다.");
 				$(a).parent().next().children('label').click();
 			} else {
-				console.log(data.bucketNo);
 				$(s).next().next().next().next().next().next().next().val(data.productPrice);
 				$(s).next().next().next().next().next().text(data.productPrice);
 				$(s).next().val(data.productCount);
@@ -85,17 +78,12 @@ function addCount(a, bucketNo, productNo, productSize, productPrice) {
 			productPrice:productPrice
 		},
 		success: function(data){
-			console.log(data)
 			if(Object.keys(data)[0] == 'max') {
-				console.log("max")
 				alert("최대 수량입니다.");
 			} else if(Object.keys(data)[0] == 'no') {
-				console.log("no")
-				console.log($(a));
 				alert("재고가 없습니다.");
 				$(a).parent().next().children('label').click();
 			} else {
-				console.log(data.bucketNo);
 				$(a).next().next().next().next().next().val(data.productPrice);
 				$(a).next().next().next().text(data.productPrice);
 				$(a).prev().val(data.productCount);
@@ -108,7 +96,6 @@ function addCount(a, bucketNo, productNo, productSize, productPrice) {
 
 function delectBasket(c, bucketNo) {
 	var result = confirm("장바구니에 삭제하시겠습니까?");
-	console.log(c)
 	if (result) {
 		$.ajax({
 			url : "delectBasket.cu",
@@ -116,7 +103,6 @@ function delectBasket(c, bucketNo) {
 				bucketNo : bucketNo
 			},
 			success : function(data) {
-				console.log(Object.keys(data).length)
 				if(data.length == 2) {
 					$('.container-fluid').html("<h3 style='width: 848px; text-align: center; margin-top: 200px; margin-bottom: 200px;'>장바구니가 비어있습니다.</h3>")
 				} else {
@@ -140,5 +126,63 @@ function priceCommas() {
 	}
 	$('#totalPrice').text(numberWithCommas($('#totalPrice').text()))
 	$('#totalPrice2').text(numberWithCommas($('#totalPrice2').text()))
+}
+
+function customerBuyItem() {
+	var itemCheck = $('input[name=productNo]');
+	var length = $('input[name=productNo]').length;
+	itemArray = new Array();
+	var checkFlag = false;
+	for(var i = 0; i < length; i++) {
+		if(itemCheck.eq(i).is(':checked')) {
+			itemJson(i);
+			checkFlag = true;
+		}
+	}
+	if(checkFlag == false) {
+		alert("제품을 선택해주세요");
+	} else {
+		var jsonItem = JSON.stringify(itemArray);
+		$.ajax({
+			url: "buyItemList.cu",
+			type: 'POST',
+			contentType:'application/json; charset=UTF-8',
+			data: jsonItem,
+			success: function(data) {
+				if(data.trim() == "success") {
+					location.href="customerBuyItem.cu";
+				} else if(data.trim() == "change") {
+					alert("재고 현황으로 인해 수량이 변경되었습니다. 확인부탁드립니다.");
+					location.href="customerBuyItem.cu";				
+				} else {
+					alert("재고가 없습니다.");
+					location.reload();
+				}
+			}
+		})
+	}
+}
+
+
+function itemJson(i) {
+	var bucketNo = $('input[name=bucketNo]').eq(i).val();
+	var productNo = $('input[name=productNo]').eq(i).val();
+	var productSize = $('input[name=productSize]').eq(i).val();
+	var productThumNail = $('.item_img').children().eq(i).attr('alt');
+	var productName = $('.item_name').eq(i).text();
+	var productSize = $('input[name=productSize]').eq(i).val();
+	var productCount = $('input[name=productCount]').eq(i).val();
+	var productPrice = $('input[name=productPrice]').eq(i).val();
+	var itemInfo = new Object();
+	
+	itemInfo.bucketNo = bucketNo;
+	itemInfo.customerNo = customerNo;
+	itemInfo.productNo = productNo;
+	itemInfo.productThumNail = productThumNail;
+	itemInfo.productName = productName;
+	itemInfo.productSize = productSize;
+	itemInfo.productCount = productCount;
+	itemInfo.productPrice = productPrice;
+	itemArray.push(itemInfo);
 }
 

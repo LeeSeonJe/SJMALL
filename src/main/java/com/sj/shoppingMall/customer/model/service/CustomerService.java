@@ -1,9 +1,11 @@
 package com.sj.shoppingMall.customer.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.vo.BucketProduct;
+import com.sj.shoppingMall.customer.model.vo.BuyProduct;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 
 public interface CustomerService {
@@ -34,6 +36,9 @@ public interface CustomerService {
 
 	// 장바구니 제품 가져오기
 	BucketProduct getBucketProduct(Integer bucketNo, int stockCount, Integer productPrice);
+
+	// 구매할때 제품 검사
+	Map checkItem(BuyProduct[] bp);
 
 	
 

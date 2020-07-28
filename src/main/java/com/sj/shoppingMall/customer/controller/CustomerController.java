@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +25,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.service.CustomerService;
+import com.sj.shoppingMall.customer.model.vo.Address;
 import com.sj.shoppingMall.customer.model.vo.BucketProduct;
+import com.sj.shoppingMall.customer.model.vo.BuyProduct;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 import com.sj.shoppingMall.customer.model.vo.TempBucket;
 
@@ -42,7 +46,6 @@ public class CustomerController {
 			@RequestParam String domein, HttpServletResponse response) throws IOException {
 		String email = email_id + "@" + domein;
 		mem.setPwd(encoder.encode(mem.getPwd()));
-
 		// email 넣어주기
 		mem.setEmail(email);
 
@@ -55,12 +58,22 @@ public class CustomerController {
 		} else {
 			return "redirect:signUp.co?fail=fail";
 		}
+
 	}
 
 	// 회원정보 페이지
 	@RequestMapping("customerProfile.cu")
 	public String customerProfile() {
 		return "customerProfile";
+	}
+
+	// 장바구니 페이지
+	@RequestMapping("customerBasket.cu")
+	public String customerBasket(HttpSession session, Model m) {
+		Customer loginUser = (Customer) session.getAttribute("loginUser");
+		ArrayList<BucketProduct> bpList = cuService.getBucketList(loginUser.getMember().getMemberNo());
+		m.addAttribute("bpList", bpList);
+		return "customerBasket";
 	}
 
 	// 장바구니 추가
@@ -102,15 +115,6 @@ public class CustomerController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	// 장바구니 페이지
-	@RequestMapping("customerBasket.cu")
-	public String customerBasket(HttpSession session, Model m) {
-		Customer loginUser = (Customer) session.getAttribute("loginUser");
-		ArrayList<BucketProduct> bpList = cuService.getBucketList(loginUser.getMember().getMemberNo());
-		m.addAttribute("bpList", bpList);
-		return "customerBasket";
 	}
 
 	// 장바구니 제품 개수 증가
@@ -187,10 +191,51 @@ public class CustomerController {
 		}
 
 	}
+
+	@RequestMapping("buyItemList.cu")
+	@ResponseBody
+	public void customerBuyItem(@RequestBody BuyProduct[] bp, HttpSession session, HttpServletResponse response, Model m) throws IOException {
+		Map bpMap = new HashMap();
+		bpMap = cuService.checkItem(bp);
+		String status = (String) bpMap.get("status");
+		ArrayList<BuyProduct> bIList = (ArrayList) bpMap.get("bpList");
+		PrintWriter out = response.getWriter();
+		if(status.equals("success") && !bIList.isEmpty()) {
+			session.setAttribute("bIList", bIList);
+			out.write("success");
+		} else if(status.equals("success") && bIList.isEmpty()) {
+			out.write("no");
+		} else {
+			session.setAttribute("bIList", bIList);
+			out.write("change");
+		}
+	}
 	
+	@RequestMapping("customerPayment.cu")
+	public String customerPayment(Address address, 
+			@RequestParam String orderPhone1,
+			@RequestParam String orderPhone2,
+			@RequestParam String orderPhone3,
+			@RequestParam List productNo,
+			@RequestParam List productSize,
+			@RequestParam List productCount,
+			@RequestParam List productPrice,
+			@RequestParam int totalPrice,
+			@RequestParam List orderMemo
+			) {
+		System.out.println(address);
+		System.out.println(productNo);
+		System.out.println(productSize);
+		System.out.println(productCount);
+		System.out.println(productPrice);
+		System.out.println(totalPrice);
+		System.out.println(orderMemo);
+		return "";
+	}
+
 	@RequestMapping("customerBuyItem.cu")
-	public String customerBuyItem(@re) {
-		
+	public String customerBuyItem() {
+
 		return "customerBuyItem";
 	}
 

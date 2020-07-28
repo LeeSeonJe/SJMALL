@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.vo.BucketProduct;
+import com.sj.shoppingMall.customer.model.vo.BuyProduct;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 
 @Repository("cuDAO")
@@ -90,13 +91,62 @@ public class CustomerDAO {
 		}
 	}
 
-	public BucketProduct getBucketProduct(SqlSessionTemplate sqlSession, Integer bucketNo, int stockCount, Integer productPrice) {
+	public BucketProduct getBucketProduct(SqlSessionTemplate sqlSession, Integer bucketNo, int stockCount,
+			Integer productPrice) {
 		Map<String, Object> m = new HashMap<String, Object>();
 		productPrice = stockCount * productPrice;
 		m.put("bucketNo", bucketNo);
 		m.put("stockCount", stockCount);
-		m.put("productPrice", productPrice);		
+		m.put("productPrice", productPrice);
 		sqlSession.update("customerMapper.countUpdate", m);
 		return sqlSession.selectOne("customerMapper.getBasket", bucketNo);
+	}
+
+	public Map checkItem(SqlSessionTemplate sqlSession, BuyProduct[] bp) {
+		ArrayList<BuyProduct> bpList = new ArrayList<BuyProduct>();
+		int productPrice = 0;
+		String status = "success";
+		Map buyItemMap = new HashMap();
+		for (BuyProduct b : bp) {
+			productPrice = b.getProductPrice() / b.getProductCount();
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("productNo", b.getProductNo());
+			m.put("productSize", b.getProductSize());
+			Object stockCount = sqlSession.selectOne("customerMapper.stockCount", m);
+			if (stockCount == null && (Integer) stockCount == 0) {
+				if(b.getBucketNo() != 0) {
+					sqlSession.delete("customerMapper.delectBasket", b.getBucketNo());
+					status = "change";
+				} else {
+					status = "change";			
+				}
+			} else if((Integer) stockCount < b.getProductCount()) {
+				productPrice = (Integer) stockCount * productPrice;
+				if(b.getBucketNo() != 0) {
+					m.put("bucketNo", b.getBucketNo());
+					m.put("stockCount", stockCount);
+					m.put("productPrice", productPrice);
+					sqlSession.update("customerMapper.countUpdate", m);
+					b.setProductCount((Integer) stockCount);
+					b.setProductPrice(productPrice);
+					if(b.getProductCount() == 0 && b.getProductPrice() == 0) {
+						sqlSession.delete("customerMapper.delectBasket", b.getBucketNo());
+					} else {
+						bpList.add(b);
+						status = "change";							
+					}
+				} else {
+					b.setProductCount((Integer) stockCount);
+					b.setProductPrice(productPrice);
+					bpList.add(b);
+					status = "change";	
+				}
+			} else {
+				bpList.add(b);
+			}
+		}
+		buyItemMap.put("status", status);
+		buyItemMap.put("bpList", bpList);
+		return buyItemMap;
 	}
 }

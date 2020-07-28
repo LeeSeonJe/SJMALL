@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,7 +40,7 @@ public class CommonController {
 
 	// 시작시 메인페이지 이동
 	@RequestMapping("main.co")
-	public String main(Model m) {
+	public String main(Model m, HttpSession session) {
 		int number = 0;
 		String Top = "Top";
 		String Pants = "Pants";
@@ -56,6 +57,7 @@ public class CommonController {
 		.addAttribute("pSkirtList", pSkirtList)
 		.addAttribute("pOnePieceList", pOnePieceList)
 		.addAttribute("pShoesList", pShoesList);
+		session.setAttribute("bpList", null);
 		return "main";
 	}
 

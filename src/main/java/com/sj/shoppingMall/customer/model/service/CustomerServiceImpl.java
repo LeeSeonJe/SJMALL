@@ -1,6 +1,7 @@
 package com.sj.shoppingMall.customer.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.sj.shoppingMall.common.model.vo.Member;
 import com.sj.shoppingMall.customer.model.dao.CustomerDAO;
 import com.sj.shoppingMall.customer.model.vo.BucketProduct;
+import com.sj.shoppingMall.customer.model.vo.BuyProduct;
 import com.sj.shoppingMall.customer.model.vo.Customer;
 
 import oracle.net.aso.b;
@@ -73,6 +75,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public BucketProduct getBucketProduct(Integer bucketNo, int stockCount, Integer productPrice) {
 		return cuDAO.getBucketProduct(sqlSession, bucketNo, stockCount, productPrice);
+	}
+
+	@Override
+	public Map checkItem(BuyProduct[] bp) {
+		return cuDAO.checkItem(sqlSession, bp);
 	}
 
 	

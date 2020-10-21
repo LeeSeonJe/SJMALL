@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "redirect:main.co";
+		System.out.println("hi");
+		return "redirect:main.co"; 
 	}
 }
